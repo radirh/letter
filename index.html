@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>A Letter For Lakeisha Derly Surayuda — Sweet Sixteen</title>
+  <meta name="description" content="An interactive birthday letter for Lakeisha Derly Surayuda's 16th birthday." />
+
+  <!-- Google Fonts: Cormorant Garamond (elegant serif for letters & headings),
+       Caveat (handwritten script for the personal signature touches),
+       Quicksand (soft rounded sans for UI / labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Caveat:wght@500;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       LOADING SCREEN
+       ============================================================ -->
+  <div id="loading-screen" class="loading-screen" aria-hidden="false">
+    <div class="loading-seal">
+      <svg viewBox="0 0 100 100" class="loading-seal__svg">
+        <circle cx="50" cy="50" r="46" class="seal-ring" />
+        <text x="50" y="58" class="seal-letter">L</text>
+      </svg>
+      <div class="loading-sparkle s1">✦</div>
+      <div class="loading-sparkle s2">✧</div>
+      <div class="loading-sparkle s3">✦</div>
+    </div>
+    <p class="loading-text">A special surprise is being prepared<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
+    <div class="loading-bar">
+      <div class="loading-bar__fill" id="loading-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- Ambient background layer shared across the whole page -->
+  <div id="ambient-bg" class="ambient-bg" aria-hidden="true">
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+  </div>
+
+  <!-- Floating particles / sparkles / petals are injected here by script.js -->
+  <div id="particle-layer" class="particle-layer" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       MAIN SITE (revealed after loading)
+       ============================================================ -->
+  <main id="site" class="site" aria-hidden="true">
+
+    <!-- ---------- HERO SECTION ---------- -->
+    <section id="hero" class="hero">
+      <p class="hero__eyebrow">a letter is waiting for</p>
+      <h1 class="hero__name">Lakeisha&nbsp;Derly<br class="br-mobile" />&nbsp;Surayuda</h1>
+
+      <div class="envelope-wrap">
+        <button id="open-letter-btn" class="envelope" aria-label="Open the birthday letter">
+          <span class="envelope__shadow"></span>
+          <span class="envelope__back"></span>
+          <span class="envelope__flap"></span>
+          <span class="envelope__seal">
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" /><text x="50" y="59">L</text></svg>
+          </span>
+          <span class="envelope__front"></span>
+          <span class="envelope__letter-peek"></span>
+        </button>
+      </div>
+
+      <p class="hero__line">Someone has a birthday letter for you 💌</p>
+      <button id="open-letter-cta" class="btn btn--primary">Open Letter</button>
+    </section>
+
+    <!-- ---------- LETTER OPENING STAGE (cinematic transition target) ---------- -->
+    <section id="reveal-stage" class="reveal-stage">
+
+      <!-- Photo Reveal -->
+      <div class="photo-reveal">
+        <div class="photo-reveal__frame">
+          <img src="assets/images/derly.jpg" alt="Lakeisha Derly Surayuda" id="derly-photo" class="photo-reveal__img" />
+          <div class="photo-reveal__hat" aria-hidden="true">🎉</div>
+        </div>
+      </div>
+
+      <!-- Birthday Title -->
+      <div class="birthday-title">
+        <p class="birthday-title__cake">🎂 Happy Sweet 16 Birthday 🎂</p>
+        <h2 class="birthday-title__name">Lakeisha Derly Surayuda</h2>
+        <p class="birthday-title__dates">12 July 2010 &nbsp;•&nbsp; 12 July 2026</p>
+        <p class="birthday-title__tagline">16 Years Of Beautiful Memories</p>
+      </div>
+
+      <!-- Main Letter -->
+      <div class="main-letter">
+        <div class="main-letter__paper">
+          <p class="main-letter__salutation">Dear Derly,</p>
+          <div id="main-letter-text" class="main-letter__body typewriter-target" data-full-text="On the day you turned sixteen, I wanted you to have something that felt like more than just a message — a little world made just for you. Sixteen years ago, you arrived and quietly made everyone around you a little softer, a little happier. Since then you've grown into someone warm, funny, a little bit chaotic in the best way, and endlessly kind to the people lucky enough to know you. This page is a small keepsake of that — a letter, some secrets from the people who love you, and one more thing waiting at the very end. Take your time. Open each envelope slowly. You deserve every bit of this day, and every birthday after it. With all my love, today and always."></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- SECRET FRIEND MESSAGES ---------- -->
+    <section id="friends" class="friends-section">
+      <p class="section-eyebrow">10 secrets, sealed just for you</p>
+      <h2 class="section-title">Birthday Wishes From Your Friends</h2>
+
+      <div class="progress-tracker">
+        <div class="progress-tracker__seal">💙</div>
+        <p class="progress-tracker__text"><span id="progress-count">0</span> / 10 Memories Opened</p>
+        <div class="progress-tracker__bar"><div id="progress-bar-fill" class="progress-tracker__bar-fill"></div></div>
+      </div>
+
+      <div id="friends-grid" class="friends-grid">
+        <!-- Friend envelope cards are generated by script.js from the CONFIG.friends array -->
+      </div>
+    </section>
+
+    <!-- ---------- FINAL SURPRISE TEASER (hidden until all 10 opened) ---------- -->
+    <section id="final-teaser" class="final-teaser" hidden>
+      <p class="final-teaser__wait">Wait...</p>
+      <p class="final-teaser__line">There is still one more letter.</p>
+      <button id="final-envelope-btn" class="final-envelope" aria-label="Open the final letter">
+        <span class="final-envelope__glow"></span>
+        <span class="final-envelope__back"></span>
+        <span class="final-envelope__flap"></span>
+        <span class="final-envelope__seal">💙</span>
+        <span class="final-envelope__front"></span>
+      </button>
+      <p class="final-teaser__label">💙 Final Letter</p>
+    </section>
+
+    <!-- ---------- MEMORY WALL ---------- -->
+    <section id="memory-wall" class="memory-wall">
+      <p class="section-eyebrow">a little gallery</p>
+      <h2 class="section-title">Memory Wall</h2>
+      <div id="memory-grid" class="memory-grid">
+        <!-- 12 photo placeholders generated by script.js -->
+      </div>
+    </section>
+
+    <!-- ---------- TIMELINE ---------- -->
+    <section id="timeline" class="timeline-section">
+      <p class="section-eyebrow">how she got here</p>
+      <h2 class="section-title">16 Years Journey</h2>
+      <div id="timeline-track" class="timeline-track">
+        <!-- Timeline items generated by script.js from CONFIG.timeline -->
+      </div>
+    </section>
+
+    <!-- ---------- FOOTER ---------- -->
+    <footer class="footer">
+      <p class="footer__text">Made with <span class="heartbeat" aria-hidden="true">❤️</span> for Lakeisha Derly Surayuda</p>
+    </footer>
+
+  </main>
+
+  <!-- ============================================================
+       FRIEND LETTER MODAL (opening experience for the 10 secrets)
+       ============================================================ -->
+  <div id="friend-modal" class="modal" aria-hidden="true">
+    <div class="modal__backdrop" id="friend-modal-backdrop"></div>
+    <div class="modal__stage">
+      <button class="modal__close" id="friend-modal-close" aria-label="Close letter">✕</button>
+
+      <!-- Envelope opening animation layer -->
+      <div class="modal__envelope" id="modal-envelope">
+        <span class="modal__envelope-back"></span>
+        <span class="modal__envelope-flap"></span>
+        <span class="modal__envelope-seal">💌</span>
+        <span class="modal__envelope-front"></span>
+      </div>
+
+      <!-- Revealed letter content -->
+      <div class="modal__content" id="modal-content" hidden>
+        <div class="modal__photos">
+          <div class="polaroid polaroid--friend">
+            <img id="modal-friend-photo" src="" alt="" />
+          </div>
+          <div class="polaroid polaroid--together" id="modal-together-wrap" hidden>
+            <img id="modal-together-photo" src="" alt="" />
+          </div>
+        </div>
+        <h3 id="modal-friend-name" class="modal__name"></h3>
+        <p id="modal-friend-text" class="modal__message typewriter-target" data-full-text=""></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FINAL LETTER MODAL
+       ============================================================ -->
+  <div id="final-modal" class="modal modal--final" aria-hidden="true">
+    <div class="modal__backdrop" id="final-modal-backdrop"></div>
+    <div class="modal__stage modal__stage--final">
+      <button class="modal__close" id="final-modal-close" aria-label="Close final letter">✕</button>
+      <div class="modal__content modal__content--final" id="final-modal-content">
+        <div class="polaroid polaroid--final">
+          <img id="final-photo" src="assets/images/final-photo.jpg" alt="A favourite memory" />
+        </div>
+        <p class="modal__final-label">💙 From Me, To You</p>
+        <p id="final-letter-text" class="modal__message modal__message--final typewriter-target" data-full-text="If you've made it this far, that means you opened every secret and read every wish — and now it's just the two of us. Watching you grow into sixteen has been one of my favourite things. I've seen you laugh until you cried, cry until you laughed again, chase ridiculous ideas, and somehow make every room you walk into feel a little warmer. Sixteen is the beginning of a chapter where you get to decide more and more of who you become — and I already know it's going to be someone wonderful, because you already are. So happy sweet sixteen, Derly. May this year give you everything your sixteen-year-old heart is hoping for, and a few things you didn't even know to wish for. I'm so endlessly proud of you. Always in your corner."></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FLOATING MUSIC PLAYER
+       ============================================================ -->
+  <div id="music-player" class="music-player">
+    <button id="music-toggle" class="music-player__toggle" aria-label="Play or pause music">
+      <span class="music-player__icon" id="music-icon">♪</span>
+    </button>
+    <div class="music-player__panel" id="music-panel">
+      <p class="music-player__track" id="music-track-name">Main Theme</p>
+      <div class="music-player__controls">
+        <button id="music-play-pause" class="music-player__btn" aria-label="Play/Pause">▶</button>
+        <button id="music-mute" class="music-player__btn" aria-label="Mute">🔊</button>
+        <input id="music-volume" class="music-player__volume" type="range" min="0" max="1" step="0.01" value="0.6" aria-label="Volume" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       AUDIO ELEMENTS
+       (paths are read from CONFIG in script.js — these tags are kept
+       empty/minimal here, script.js sets src dynamically so adding or
+       renaming friend tracks only requires editing CONFIG)
+       ============================================================ -->
+  <audio id="audio-main" loop preload="none"></audio>
+  <audio id="audio-friend" preload="none"></audio>
+  <audio id="audio-final" preload="none"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
